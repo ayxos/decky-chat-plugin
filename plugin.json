@@ -1,0 +1,8 @@
+
+{
+  "name": "DeckyChat",
+  "author": "YourName",
+  "version": "1.0.0",
+  "backend": "backend.py",
+  "main": "src/main.tsx"
+}
