@@ -3,27 +3,40 @@ import { definePlugin, PanelSection, Button } from "decky-frontend-lib";
 import QRCode from "qrcode.react";
 import { useEffect, useState } from "react";
 
-const WebSocketURL = `ws://${window.location.hostname}:8765`;
-
 export default definePlugin(() => {
   const [serverIP, setServerIP] = useState("");
   const [showQR, setShowQR] = useState(false);
+  const [running, setRunning] = useState(false);
 
-  useEffect(() => {
-    (async () => {
-      const res = await deckyPlugin.callBackend("get_ip", {});
-      setServerIP(res.ip);
-    })();
-  }, []);
+  const fetchIP = async () => {
+    const res = await deckyPlugin.callBackend("get_ip", {});
+    setServerIP(res.ip);
+  };
 
-  const url = `http://${serverIP}:8765/client/`;
+  const startServer = async () => {
+    await deckyPlugin.callBackend("start_server", {});
+    await fetchIP();
+    setRunning(true);
+  };
+
+  const stopServer = async () => {
+    await deckyPlugin.callBackend("stop_server", {});
+    setRunning(false);
+  };
 
   return (
-    <PanelSection title="Decky Chat QR">
-      <Button onClick={() => setShowQR(!showQR)}>
-        {showQR ? "Hide QR" : "Show QR"}
+    <PanelSection title="Decky Chat Server">
+      <Button onClick={running ? stopServer : startServer}>
+        {running ? "Stop Server" : "Start Server"}
       </Button>
-      {showQR && <QRCode value={url} />}
+      {running && (
+        <>
+          <Button onClick={() => setShowQR(!showQR)}>
+            {showQR ? "Hide QR" : "Show QR"}
+          </Button>
+          {showQR && <QRCode value={`http://${serverIP}:8765/client/`} />}
+        </>
+      )}
     </PanelSection>
   );
 });
