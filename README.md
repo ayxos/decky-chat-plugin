@@ -1,0 +1,1 @@
+# decky-chat-plugin
