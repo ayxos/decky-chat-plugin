@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   build: {
-    outDir: "./dist",
+    outDir: "./decky-chat-plugin/dist",
     emptyOutDir: true,
     sourcemap: false,
     minify: true,
