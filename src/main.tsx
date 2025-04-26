@@ -1,6 +1,6 @@
 
 import { definePlugin, PanelSection, Button } from "decky-frontend-lib";
-import QRCode from "qrcode.react";
+import {QRCodeSVG} from "qrcode.react";
 import { useEffect, useState } from "react";
 
 export default definePlugin(() => {
@@ -34,7 +34,7 @@ export default definePlugin(() => {
           <Button onClick={() => setShowQR(!showQR)}>
             {showQR ? "Hide QR" : "Show QR"}
           </Button>
-          {showQR && <QRCode value={`http://${serverIP}:8765/client/`} />}
+          {showQR && <QRCodeSVG value={`http://${serverIP}:8765/client/`} />}
         </>
       )}
     </PanelSection>

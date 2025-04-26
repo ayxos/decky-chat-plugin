@@ -3,6 +3,7 @@
   "name": "DeckyChat",
   "author": "YourName",
   "version": "1.0.0",
-  "backend": "backend.py",
-  "main": "src/main.tsx"
+  "description": "Chat between Steam Deck and mobile via WebSocket",
+  "backend": "backend",
+  "main": "dist/main.js"
 }
